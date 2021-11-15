@@ -41,7 +41,17 @@ void Lighting::InitFastLED()
 
 void Lighting::TestStrands()
 {
-	RightStrand[0] = CRGB::Red; FastLED.show(); delay(30);
-	LeftStrand[0] = CRGB::Green; FastLED.show(); delay(30);
+	for(int i = 0; i < NUM_LEDS; i++)
+	{
+	RightStrand[0] = CRGB::Red;
+	LeftStrand[0] = CRGB::Green;
 	FastLED.show();
+	}
+	delay(3000);
+	for(int i = 0; i < NUM_LEDS; i++)
+	{
+	RightStrand[0] = CRGB::Black;
+	LeftStrand[0] = CRGB::Black;
+	FastLED.show();
+	}
 }
