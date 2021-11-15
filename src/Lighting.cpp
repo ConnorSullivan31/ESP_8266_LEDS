@@ -10,21 +10,39 @@ FASTLED_USING_NAMESPACE
 #define RightStrandPin   14 //used to be 5 for silk screen mapping, now 14 for esp8266 chip pin mapping idk what changed
 #define LeftStrandPin    12//used to be 6 for silk screen mapping, now 12 for esp8266 chip pin mapping idk what changed
 //#define CLK_PIN   4      //don't know what this would change to like above, never needed for this chipset
-#define NUM_LEDS 60
+#define NUM_LEDS 50
 CRGB RightStrand[NUM_LEDS];
 CRGB LeftStrand[NUM_LEDS];
 #define CHIPSET_TYPE WS2811
 #define COLOR_ORDER RGB
-#define BRIGHTNESS         127//96 was the original value
-#define FRAMES_PER_SECOND  120
+#define BRIGHTNESS         255//96 was the original value
+#define FRAMES_PER_SECOND  120//Maybe ill use this one day
 //////////////////////////
 
 
-
+namespace Colors {
+int red=0;
+int orangeRed=24;
+int orange=32;
+int yellow=64;
+int green=96;
+int aqua=128;
+int blue=160;
+int purple=192;
+int pink=224;
+int fullcolor=255;
+int halfcolor=127;
+int white=0;
+int quarterbrightness=63;
+int halfbrightness=127;
+int fullbrightness=255;
+int black=0;
+}
 
 Lighting::Lighting()
 {
 
+InitFastLED();
 }
 
 Lighting::~Lighting()
@@ -41,17 +59,41 @@ void Lighting::InitFastLED()
 
 void Lighting::TestStrands()
 {
-	for(int i = 0; i < NUM_LEDS; i++)
+	using namespace Colors;
+
+	for(int i = 0; i < NUM_LEDS; i++)//clear any saved color buffer
 	{
-	RightStrand[0] = CRGB::Red;
-	LeftStrand[0] = CRGB::Green;
-	FastLED.show();
+	RightStrand[i] = CRGB::Black;
+	LeftStrand[i] = CRGB::Black;
 	}
-	delay(3000);
-	for(int i = 0; i < NUM_LEDS; i++)
-	{
-	RightStrand[0] = CRGB::Black;
-	LeftStrand[0] = CRGB::Black;
 	FastLED.show();
+	delay(10);//give leds a breather b4 starting up
+
+	for(int i = 0; i < NUM_LEDS; i++)//show all white and aqua as test
+	{
+	RightStrand[i].setHSV(white,white,fullbrightness);
+	LeftStrand[i].setHSV(aqua,fullcolor,fullbrightness);
+	}
+	FastLED.show();
+	delay(3000);
+	for(int i = 0; i < NUM_LEDS; i++)//reset leds to black
+	{
+	RightStrand[i] = CRGB::Black;
+	LeftStrand[i] = CRGB::Black;
+	}
+	FastLED.show();
+}
+
+void Lighting::BusyPattern()
+{
+	for(int hue = 0; hue<=255; hue++)
+	{
+		for(int i = 0; i < NUM_LEDS; i++)
+		{
+			RightStrand[i].setHSV(hue,255,255);
+			LeftStrand[i].setHSV(hue,255,255);
+		}
+		delay(30);
+		FastLED.show();
 	}
 }

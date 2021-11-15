@@ -9,6 +9,7 @@ public:
 	~Lighting();
 	void InitFastLED();
 	void TestStrands();
+	void BusyPattern();
 
 protected:
 
