@@ -41,7 +41,7 @@ int black=0;
 
 Lighting::Lighting()
 {
-
+ResetToBlack();
 InitFastLED();
 }
 
@@ -57,16 +57,24 @@ void Lighting::InitFastLED()
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
-void Lighting::TestStrands()
+void Lighting::ResetToBlack(bool show_reset)
 {
-	using namespace Colors;
-
-	for(int i = 0; i < NUM_LEDS; i++)//clear any saved color buffer
+	for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to black
 	{
 	RightStrand[i] = CRGB::Black;
 	LeftStrand[i] = CRGB::Black;
 	}
-	FastLED.show();
+	if(show_reset)
+	{
+		FastLED.show();
+	}
+}
+
+void Lighting::TestStrands()
+{
+	using namespace Colors;
+
+	ResetToBlack();//Set Leds to black and make sure there are no stored colors
 	delay(10);//give leds a breather b4 starting up
 
 	for(int i = 0; i < NUM_LEDS; i++)//show all white and aqua as test
@@ -75,13 +83,9 @@ void Lighting::TestStrands()
 	LeftStrand[i].setHSV(aqua,fullcolor,fullbrightness);
 	}
 	FastLED.show();
+	
 	delay(3000);
-	for(int i = 0; i < NUM_LEDS; i++)//reset leds to black
-	{
-	RightStrand[i] = CRGB::Black;
-	LeftStrand[i] = CRGB::Black;
-	}
-	FastLED.show();
+	ResetToBlack();//Set leds back to black
 }
 
 void Lighting::BusyPattern()

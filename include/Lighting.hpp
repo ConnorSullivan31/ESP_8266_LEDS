@@ -8,6 +8,7 @@ public:
 	Lighting();
 	~Lighting();
 	void InitFastLED();
+	void ResetToBlack(bool show_reset = true);
 	void TestStrands();
 	void BusyPattern();
 
