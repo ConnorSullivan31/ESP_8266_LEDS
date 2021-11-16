@@ -2,6 +2,8 @@
 #define Lighting_HPP
 #include <FastLED.h>
 
+
+
 class Lighting
 {
 public:
@@ -15,7 +17,6 @@ public:
 protected:
 
 private:
-	int pin;
 
 };
 

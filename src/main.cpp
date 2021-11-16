@@ -1,11 +1,14 @@
 #include <Arduino.h>
 #include "Lighting.hpp"
+#include "DynamicEffects.hpp"
+#include "StaticEffects.hpp"
 #include "Timing.hpp"
 
 
 
 
 Lighting Leds;
+
 Timing BaseTimer;
 
 void setup() {
@@ -14,6 +17,7 @@ void setup() {
   Serial.begin(9600);
   Leds.TestStrands();
   delay(1000);//set small delay again before program starts - May want to remove depending on program requirements
+
 }
 
 void loop() {
