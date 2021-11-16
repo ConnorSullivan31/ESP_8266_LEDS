@@ -20,7 +20,7 @@ FASTLED_USING_NAMESPACE
 #define FRAMES_PER_SECOND  120//Maybe I'll use this one day
 //////////////////////////
 CRGB LedStrandArray[NUM_STRANDS][NUM_LEDS];//Order is Right to Left
-enum StrandOrder{RightStrand = 0, LeftStrand = 1};//Order the leds
+enum StrandOrder{RightStrand = 0, LeftStrand = 1, Strand3 = 2, Strand4 = 3};//Order the leds
 //////////////////////////
 namespace Colors
 {
