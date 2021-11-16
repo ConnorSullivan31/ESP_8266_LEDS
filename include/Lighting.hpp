@@ -15,6 +15,12 @@ public:
 	void BusyPattern();
 	void BusyPattern2();
 
+	void ResetToBlackBetween(int lowerRange, int upperRange);
+	void AddressAllStrands(int H, int S, int V, bool show_update = true);
+	void AddressAllStrandsSingle(int led_num, int H, int S, int V, bool show_update = true);
+	void AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update = true);
+	void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true);
+
 protected:
 
 private:

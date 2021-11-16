@@ -61,6 +61,9 @@ void Lighting::InitFastLED()
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
+
+//Basic Ops
+
 void Lighting::ResetToBlack(bool show_reset)
 {
 	for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to black
@@ -91,6 +94,67 @@ void Lighting::TestStrands()
 	delay(3000);
 	ResetToBlack();//Set leds back to black
 }
+
+void Lighting::AddressAllStrands(int H, int S, int V, bool show_update)
+{
+	for(int i = 0; i < NUM_STRANDS; i++)
+	{
+		for(int j = 0; j < NUM_LEDS; i++)
+		{
+			LedStrandArray[i][j].setHSV(H,S,V);
+		}
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void Lighting::AddressAllStrandsSingle(int led_num, int H, int S, int V, bool show_update)
+{
+	for(int i = 0; i < NUM_STRANDS; i++)
+	{
+			LedStrandArray[i][led_num].setHSV(H,S,V);
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void Lighting::ResetToBlackBetween(int lowerRange, int upperRange){
+  for(int i=lowerRange;i<=upperRange;i++){
+    AddressAllStrandsSingle(i,0,0,0,false);
+  }
+  FastLED.show();
+}
+
+
+void AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update = true)
+{
+	for(int i = 0; i<NUM_LEDS; i++)
+	{
+		LedStrandArray[strand_num][i].setHSV(H,S,V);
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true)
+{
+	LedStrandArray[strand_num][led_num].setHSV(H,S,V);
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+
+
+
+
 
 void Lighting::BusyPattern()
 {
