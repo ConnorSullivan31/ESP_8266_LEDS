@@ -24,5 +24,14 @@ void loop() {
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
   //DynamicAnimation.ColorCycle();
-  StaticPicture.StaticUSA();
+  StaticPicture.USARedWhiteBlue();
+  delay(1000);
+  StaticPicture.PeppermintRWG();
+  delay(1000);
+  StaticPicture.PeppermintRW();
+  delay(1000);
+  StaticPicture.PeppermintRG();
+  delay(1000);
+  StaticPicture.PeppermintGW();
+  delay(1000);
 }

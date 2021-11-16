@@ -7,7 +7,12 @@ class StaticEffects : public Lighting
 public:
 	StaticEffects();
 	~StaticEffects();
-	void StaticUSA();
+	void USARedWhiteBlue();
+	void PeppermintRWG();
+	void PeppermintRW();
+	void PeppermintRG();
+	void PeppermintGW();
+
 
 protected:
 
