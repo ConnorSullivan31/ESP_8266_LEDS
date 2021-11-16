@@ -2,7 +2,25 @@
 #define Lighting_HPP
 #include <FastLED.h>
 
-
+namespace Colors
+{
+extern int red;
+extern int orangeRed;
+extern int orange;
+extern int yellow;
+extern int green;
+extern int aqua;
+extern int blue;
+extern int purple;
+extern int pink;
+extern int fullcolor;
+extern int halfcolor;
+extern int white;
+extern int quarterbrightness;
+extern int halfbrightness;
+extern int fullbrightness;
+extern int black;
+}
 
 class Lighting
 {

@@ -99,7 +99,7 @@ void Lighting::AddressAllStrands(int H, int S, int V, bool show_update)
 {
 	for(int i = 0; i < NUM_STRANDS; i++)
 	{
-		for(int j = 0; j < NUM_LEDS; i++)
+		for(int j = 0; j < NUM_LEDS; j++)
 		{
 			LedStrandArray[i][j].setHSV(H,S,V);
 		}
@@ -160,11 +160,7 @@ void Lighting::BusyPattern()
 {
 	for(int hue = 0; hue<=255; hue++)
 	{
-		for(int i = 0; i < NUM_LEDS; i++)
-		{
-			LedStrandArray[RightStrand][i].setHSV(hue,255,255);//Right Strand
-			LedStrandArray[LeftStrand][i].setHSV(hue,255,255);//Left Strand
-		}
+		AddressAllStrands(hue,255,255,false);
 		delay(30);
 		FastLED.show();
 	}

@@ -6,8 +6,8 @@
 
 
 
-
 Lighting Leds;
+DynamicEffects DynamicAnimation;
 
 Timing BaseTimer;
 
@@ -17,10 +17,10 @@ void setup() {
   Serial.begin(9600);
   Leds.TestStrands();
   delay(1000);//set small delay again before program starts - May want to remove depending on program requirements
-
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Leds.BusyPattern2();
+  //Leds.BusyPattern();
+  DynamicAnimation.ColorCycle();
 }
