@@ -105,3 +105,27 @@ void Lighting::BusyPattern()
 		FastLED.show();
 	}
 }
+
+void Lighting::BusyPattern2()
+{
+	for(int hue = 0; hue<=255; hue++)
+	{
+		for(int i = 0; i < NUM_LEDS; i++)
+		{
+			LedStrandArray[RightStrand][i].setHSV(hue,255,255);//Right Strand
+			LedStrandArray[LeftStrand][i].setHSV(hue,255,255);//Left Strand
+		}
+		delay(30);
+		FastLED.show();
+	}
+	for(int hue = 255; hue>=0; hue--)
+	{
+		for(int i = 0; i < NUM_LEDS; i++)
+		{
+			LedStrandArray[RightStrand][i].setHSV(hue,255,hue);//Right Strand
+			LedStrandArray[LeftStrand][i].setHSV(hue,255,hue);//Left Strand
+		}
+		delay(30);
+		FastLED.show();
+	}
+}

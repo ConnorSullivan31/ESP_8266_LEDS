@@ -13,6 +13,7 @@ public:
 	void ResetToBlack(bool show_reset = true);
 	void TestStrands();
 	void BusyPattern();
+	void BusyPattern2();
 
 protected:
 
