@@ -61,6 +61,9 @@ void Lighting::InitFastLED()
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
+
+//Basic Ops
+
 void Lighting::ResetToBlack(bool show_reset)
 {
 	for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to black
@@ -92,7 +95,78 @@ void Lighting::TestStrands()
 	ResetToBlack();//Set leds back to black
 }
 
+void Lighting::AddressAllStrands(int H, int S, int V, bool show_update)
+{
+	for(int i = 0; i < NUM_STRANDS; i++)
+	{
+		for(int j = 0; j < NUM_LEDS; j++)
+		{
+			LedStrandArray[i][j].setHSV(H,S,V);
+		}
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void Lighting::AddressAllStrandsSingle(int led_num, int H, int S, int V, bool show_update)
+{
+	for(int i = 0; i < NUM_STRANDS; i++)
+	{
+			LedStrandArray[i][led_num].setHSV(H,S,V);
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void Lighting::ResetToBlackBetween(int lowerRange, int upperRange){
+  for(int i=lowerRange;i<=upperRange;i++){
+    AddressAllStrandsSingle(i,0,0,0,false);
+  }
+  FastLED.show();
+}
+
+
+void AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update = true)
+{
+	for(int i = 0; i<NUM_LEDS; i++)
+	{
+		LedStrandArray[strand_num][i].setHSV(H,S,V);
+	}
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true)
+{
+	LedStrandArray[strand_num][led_num].setHSV(H,S,V);
+	if(show_update)
+	{
+		FastLED.show();
+	}
+}
+
+
+
+
+
+
 void Lighting::BusyPattern()
+{
+	for(int hue = 0; hue<=255; hue++)
+	{
+		AddressAllStrands(hue,255,255,false);
+		delay(30);
+		FastLED.show();
+	}
+}
+
+void Lighting::BusyPattern2()
 {
 	for(int hue = 0; hue<=255; hue++)
 	{
@@ -100,6 +174,16 @@ void Lighting::BusyPattern()
 		{
 			LedStrandArray[RightStrand][i].setHSV(hue,255,255);//Right Strand
 			LedStrandArray[LeftStrand][i].setHSV(hue,255,255);//Left Strand
+		}
+		delay(30);
+		FastLED.show();
+	}
+	for(int hue = 255; hue>=0; hue--)
+	{
+		for(int i = 0; i < NUM_LEDS; i++)
+		{
+			LedStrandArray[RightStrand][i].setHSV(hue,255,hue);//Right Strand
+			LedStrandArray[LeftStrand][i].setHSV(hue,255,hue);//Left Strand
 		}
 		delay(30);
 		FastLED.show();

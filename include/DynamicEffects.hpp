@@ -1,8 +1,9 @@
 #ifndef DYNAMICEFFECTS_HPP
 #define DYNAMICEFFECTS_HPP
 #include <FastLED.h>
+#include "Lighting.hpp"
 
-class DynamicEffects
+class DynamicEffects : public Lighting
 {
 public:
 	DynamicEffects();
@@ -14,7 +15,7 @@ public:
 protected:
 
 private:
-
+	int m_led_color;
 };
 
 
