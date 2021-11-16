@@ -47,6 +47,7 @@ Lighting::Lighting()
 {
 ResetToBlack();
 InitFastLED();
+m_num_leds = NUM_LEDS;
 }
 
 Lighting::~Lighting()

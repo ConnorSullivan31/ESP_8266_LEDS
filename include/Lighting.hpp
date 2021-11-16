@@ -40,7 +40,7 @@ public:
 	void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true);
 
 protected:
-
+	int m_num_leds;
 private:
 
 };

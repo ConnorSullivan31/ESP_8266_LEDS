@@ -11,7 +11,7 @@ StaticEffects::~StaticEffects()
 
 }
 
-void StaticEffects::DisplayStaticColor()
+void StaticEffects::StaticUSA()
 {
-	
+
 }

@@ -2,12 +2,12 @@
 #define STATICEFFECTS_HPP
 #include "Lighting.hpp"
 
-class StaticEffects
+class StaticEffects : public Lighting
 {
 public:
 	StaticEffects();
 	~StaticEffects();
-	void DisplayStaticColor();
+	void StaticUSA();
 
 protected:
 
