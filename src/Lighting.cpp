@@ -20,9 +20,8 @@ FASTLED_USING_NAMESPACE
 #define FRAMES_PER_SECOND  120//Maybe I'll use this one day
 //////////////////////////
 CRGB LedStrandArray[NUM_STRANDS][NUM_LEDS];//Order is Right to Left
+enum StrandOrder{RightStrand = 0, LeftStrand = 1};//Order the leds
 //////////////////////////
-
-
 namespace Colors
 {
 int red=0;
@@ -57,8 +56,8 @@ Lighting::~Lighting()
 
 void Lighting::InitFastLED()
 {
-	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[0], NUM_LEDS).setCorrection(TypicalLEDStrip);
-	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[1], NUM_LEDS).setCorrection(TypicalLEDStrip);
+	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[RightStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Right Strand
+	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[LeftStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Left Strand
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
@@ -66,8 +65,8 @@ void Lighting::ResetToBlack(bool show_reset)
 {
 	for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to black
 	{
-	LedStrandArray[0][i] = CRGB::Black;
-	LedStrandArray[1][i] = CRGB::Black;
+	LedStrandArray[RightStrand][i] = CRGB::Black;
+	LedStrandArray[LeftStrand][i] = CRGB::Black;
 	}
 	if(show_reset)
 	{
@@ -84,8 +83,8 @@ void Lighting::TestStrands()
 
 	for(int i = 0; i < NUM_LEDS; i++)//show all white and aqua as test
 	{
-	LedStrandArray[0][i].setHSV(white,white,fullbrightness);
-	LedStrandArray[1][i].setHSV(aqua,fullcolor,fullbrightness);
+	LedStrandArray[RightStrand][i].setHSV(green,fullcolor,fullbrightness);//Right Strand
+	LedStrandArray[LeftStrand][i].setHSV(aqua,fullcolor,fullbrightness);//Left Strand
 	}
 	FastLED.show();
 	
@@ -99,8 +98,8 @@ void Lighting::BusyPattern()
 	{
 		for(int i = 0; i < NUM_LEDS; i++)
 		{
-			LedStrandArray[0][i].setHSV(hue,255,255);
-			LedStrandArray[1][i].setHSV(hue,255,255);
+			LedStrandArray[RightStrand][i].setHSV(hue,255,255);//Right Strand
+			LedStrandArray[LeftStrand][i].setHSV(hue,255,255);//Left Strand
 		}
 		delay(30);
 		FastLED.show();
