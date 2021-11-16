@@ -8,6 +8,7 @@
 
 Lighting Leds;
 DynamicEffects DynamicAnimation;
+StaticEffects StaticPicture;
 
 Timing BaseTimer;
 
@@ -22,5 +23,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
-  DynamicAnimation.ColorCycle();
+  //DynamicAnimation.ColorCycle();
+  StaticPicture.StaticUSA();
 }

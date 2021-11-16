@@ -28,6 +28,9 @@ public:
 	Lighting();
 	~Lighting();
 	void InitFastLED();
+	int GetNumStrands();
+	int GetNumLeds();
+
 	void ResetToBlack(bool show_reset = true);
 	void TestStrands();
 	void BusyPattern();
@@ -40,7 +43,7 @@ public:
 	void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true);
 
 protected:
-	int m_num_leds;
+
 private:
 
 };

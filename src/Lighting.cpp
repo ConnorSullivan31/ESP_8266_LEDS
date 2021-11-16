@@ -47,7 +47,6 @@ Lighting::Lighting()
 {
 ResetToBlack();
 InitFastLED();
-m_num_leds = NUM_LEDS;
 }
 
 Lighting::~Lighting()
@@ -62,6 +61,15 @@ void Lighting::InitFastLED()
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
+int Lighting::GetNumStrands()
+{
+	return NUM_STRANDS;
+}
+
+int Lighting::GetNumLeds()
+{
+	return NUM_LEDS;
+}
 
 //Basic Ops
 
