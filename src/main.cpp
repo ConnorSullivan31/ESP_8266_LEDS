@@ -34,4 +34,5 @@ void loop() {
   delay(1000);
   StaticPicture.PeppermintGW();
   delay(1000);
+  
 }
