@@ -5,7 +5,6 @@
 #include "Timing.hpp"
 
 
-
 Lighting Leds;
 DynamicEffects DynamicAnimation;
 StaticEffects StaticPicture;
@@ -33,6 +32,10 @@ void loop() {
   StaticPicture.PeppermintRG();
   delay(1000);
   StaticPicture.PeppermintGW();
+  delay(1000);
+  StaticPicture.ShowColor(Colors::yellow);
+  delay(1000);
+  StaticPicture.ShowTwoColors(Colors::purple,Colors::aqua);
   delay(1000);
   
 }

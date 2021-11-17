@@ -7,6 +7,10 @@ class StaticEffects : public Lighting
 public:
 	StaticEffects();
 	~StaticEffects();
+
+	void ShowColor(int clr);
+	void ShowTwoColors(int clr1, int clr2);
+
 	void USARedWhiteBlue();
 	void PeppermintRWG();
 	void PeppermintRW();

@@ -96,3 +96,23 @@ void StaticEffects::PeppermintGW()
 	}
 	FastLED.show();
 }
+
+void StaticEffects::ShowColor(int clr)
+{
+	AddressAllStrands(clr,255,255);
+}
+
+void  StaticEffects::ShowTwoColors(int clr1, int clr2)
+{
+	for(int i = 0; i < GetNumStrands(); i++)
+	{
+		if((i+2)%2==0)
+		{
+			AddressSingleStrand(i, clr1,255,255);
+		}
+		else
+		{
+			AddressSingleStrand(i, clr2, 255,255);
+		}
+	}
+}

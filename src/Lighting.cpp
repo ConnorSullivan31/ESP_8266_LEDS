@@ -86,6 +86,13 @@ void Lighting::ResetToBlack(bool show_reset)
 	}
 }
 
+void Lighting::ResetToBlackBetween(int lowerRange, int upperRange){
+  for(int i=lowerRange;i<=upperRange;i++){
+    AddressAllStrandsSingle(i,0,0,0,false);
+  }
+  FastLED.show();
+}
+
 void Lighting::TestStrands()
 {
 	using namespace Colors;
@@ -131,15 +138,8 @@ void Lighting::AddressAllStrandsSingle(int led_num, int H, int S, int V, bool sh
 	}
 }
 
-void Lighting::ResetToBlackBetween(int lowerRange, int upperRange){
-  for(int i=lowerRange;i<=upperRange;i++){
-    AddressAllStrandsSingle(i,0,0,0,false);
-  }
-  FastLED.show();
-}
 
-
-void AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update = true)
+void Lighting::AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update)
 {
 	for(int i = 0; i<NUM_LEDS; i++)
 	{
@@ -151,7 +151,7 @@ void AddressSingleStrand(int strand_num, int H, int S, int V, bool show_update =
 	}
 }
 
-void AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update = true)
+void Lighting::AddressSingleStrandSingle(int strand_num, int led_num, int H, int S, int V, bool show_update)
 {
 	LedStrandArray[strand_num][led_num].setHSV(H,S,V);
 	if(show_update)
