@@ -22,7 +22,7 @@ void StaticEffects::USARedWhiteBlue()
 	for(int i = 1; i < GetNumLeds(); i+=3)
 	{
 
-		AddressAllStrandsSingle(i,white,zerocolor,fullbrightness,false);
+		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
 	for(int i = 2; i < GetNumLeds(); i+=3)
 	{
@@ -42,7 +42,7 @@ void StaticEffects::PeppermintRWG()
 	for(int i = 1; i < GetNumLeds(); i+=3)
 	{
 
-		AddressAllStrandsSingle(i,white,zerocolor,fullbrightness,false);
+		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
 	for(int i = 2; i < GetNumLeds(); i+=3)
 	{
@@ -62,7 +62,7 @@ void StaticEffects::PeppermintRW()
 	for(int i = 1; i < GetNumLeds(); i+=2)
 	{
 
-		AddressAllStrandsSingle(i,white,zerocolor,fullbrightness,false);
+		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
 	FastLED.show();
 }
@@ -92,7 +92,7 @@ void StaticEffects::PeppermintGW()
 	for(int i = 1; i < GetNumLeds(); i+=2)
 	{
 
-		AddressAllStrandsSingle(i,white,white,fullbrightness,false);
+		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
 	FastLED.show();
 }

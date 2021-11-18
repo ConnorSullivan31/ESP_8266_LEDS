@@ -28,7 +28,7 @@ void DynamicEffects::CycleColorList(int S, int V, int dly, int clr_cnt, ...)
 		selected_clr = va_arg(p_arg_list, int);
 		if(selected_clr == Colors::white)
 		{
-			AddressAllStrands(selected_clr,Colors::zerocolor,V);
+			AddressAllStrands(Colors::zerocolor,Colors::zerocolor,V);
 			delay(dly);
 		}
 		else

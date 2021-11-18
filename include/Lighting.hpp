@@ -16,11 +16,11 @@ extern int pink;
 extern int fullcolor;
 extern int halfcolor;
 extern int zerocolor;
-extern int white;
 extern int quarterbrightness;
 extern int halfbrightness;
 extern int fullbrightness;
 extern int black;
+extern int white;
 }
 
 class Lighting

@@ -36,11 +36,11 @@ int pink=224;
 int fullcolor=255;
 int halfcolor=127;
 int zerocolor=0;
-int white=111;
 int quarterbrightness=63;
 int halfbrightness=127;
 int fullbrightness=255;
 int black=0;
+int white=256;
 }
 
 
