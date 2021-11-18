@@ -35,7 +35,8 @@ int purple=192;
 int pink=224;
 int fullcolor=255;
 int halfcolor=127;
-int white=0;
+int zerocolor=0;
+int white=111;
 int quarterbrightness=63;
 int halfbrightness=127;
 int fullbrightness=255;
@@ -100,7 +101,7 @@ void Lighting::TestStrands()
 	ResetToBlack();//Set Leds to black and make sure there are no stored colors
 	delay(10);//give leds a breather b4 starting up
 
-	for(int i = 0; i < NUM_LEDS; i++)//show all white and aqua as test
+	for(int i = 0; i < NUM_LEDS; i++)//show all green and aqua as test
 	{
 	LedStrandArray[RightStrand][i].setHSV(green,fullcolor,fullbrightness);//Right Strand
 	LedStrandArray[LeftStrand][i].setHSV(aqua,fullcolor,fullbrightness);//Left Strand

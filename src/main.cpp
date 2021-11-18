@@ -23,6 +23,10 @@ void loop() {
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
   //DynamicAnimation.ColorCycle();
+
+  DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);
+  DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orange,Colors::white,Colors::purple,Colors::blue,Colors::red);
+  /*
   StaticPicture.USARedWhiteBlue();
   delay(1000);
   StaticPicture.PeppermintRWG();
@@ -36,6 +40,6 @@ void loop() {
   StaticPicture.ShowColor(Colors::yellow);
   delay(1000);
   StaticPicture.ShowTwoColors(Colors::purple,Colors::aqua);
-  delay(1000);
+  delay(1000);*/
   
 }

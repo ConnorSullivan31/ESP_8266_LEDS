@@ -15,6 +15,7 @@ extern int purple;
 extern int pink;
 extern int fullcolor;
 extern int halfcolor;
+extern int zerocolor;
 extern int white;
 extern int quarterbrightness;
 extern int halfbrightness;

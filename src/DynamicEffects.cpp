@@ -15,6 +15,31 @@ DynamicEffects::~DynamicEffects()
 }
 
 //Effects
+void DynamicEffects::CycleColorList(int S, int V, int dly, int clr_cnt, ...)
+{
+	int selected_clr;
+
+	va_list p_arg_list;
+
+	va_start(p_arg_list, clr_cnt);
+
+	for(int i = 0; i<clr_cnt; i++)
+	{	
+		selected_clr = va_arg(p_arg_list, int);
+		if(selected_clr == Colors::white)
+		{
+			AddressAllStrands(selected_clr,Colors::zerocolor,V);
+			delay(dly);
+		}
+		else
+		{
+			AddressAllStrands(selected_clr,S,V);
+			delay(dly);
+		}
+
+	}
+	va_end(p_arg_list);
+}
 
 void DynamicEffects::ColorCycle()
 {	
