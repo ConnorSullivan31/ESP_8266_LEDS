@@ -10,15 +10,20 @@ public:
 	DynamicEffects();
 	~DynamicEffects();
 
+	void ResetMbrVars();
 	//Effects
 	void CycleColorList(int S,int V, int dly, int clr_cnt, ...);
 	void ColorCycle();
+	void BreathingColorCycle(int dly, int clr_step, int S = 255, int max_brightness = 63);
 
 protected:
 
 private:
-	int m_led_color;
+	int m_current_led;
+	int m_current_color;
+	int m_current_brightness;
 	int m_step_counter;
+	bool m_fade_state;
 };
 
 

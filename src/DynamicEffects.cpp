@@ -2,16 +2,26 @@
 #include "Timing.hpp"
 
 Timing effect_timer;
+
 using namespace Colors;
 
 DynamicEffects::DynamicEffects()
 {
-	m_led_color = 0;
+	ResetMbrVars();
 }
 
 DynamicEffects::~DynamicEffects()
 {
 	
+}
+
+void DynamicEffects::ResetMbrVars()//set all iteration variables here
+{
+	m_current_color = 0;
+	m_step_counter = 0;
+	m_current_led = 0;
+	m_current_brightness = 0;
+	m_fade_state = false;
 }
 
 //Effects
@@ -45,17 +55,70 @@ void DynamicEffects::ColorCycle()
 {	
 	if(effect_timer.GetElapsedTime() > 30)
 	{
-		if(m_led_color <= 255)
+		if(m_current_color <= 255)
 		{
-			AddressAllStrands(m_led_color,fullcolor,fullbrightness);
+			AddressAllStrands(m_current_color,fullcolor,fullbrightness);
 		}
 
-		m_led_color++;
+		m_current_color++;
 
-		if(m_led_color > 255)
+		if(m_current_color > 255)
 		{
-			m_led_color = 0;
+			m_current_color = 0;
 		}
 			effect_timer.ResetElapsedTime();
+	}
+}
+
+void DynamicEffects::BreathingColorCycle(int dly, int clr_step, int S, int max_brightness)
+{
+	if(effect_timer.GetElapsedTime() > dly)
+	{
+		
+		if(m_fade_state == false)
+		{
+			if(m_current_brightness == max_brightness)//stop from fastled updating twice and causing a color pulse
+			{
+				AddressAllStrands(m_current_color,S,m_current_brightness,false);//dont update on last brightness before fade out starts
+				m_current_brightness++;
+				if(m_current_brightness > max_brightness)
+				{
+					m_fade_state = true;
+					m_current_brightness = max_brightness;
+				}
+			}
+			else
+			{
+				AddressAllStrands(m_current_color,S,m_current_brightness);
+				m_current_brightness++;
+			}
+			
+		}
+
+		if(m_fade_state == true)
+		{
+			if(m_current_brightness == 0)//stop from fastled updating twice and causing a color pulse
+			{
+				AddressAllStrands(m_current_color,S,m_current_brightness, false);//dont update on last brightness before fade in starts
+				m_current_brightness--;
+				if(m_current_brightness < 0)
+				{
+					m_fade_state = false;
+					m_current_brightness = 0;
+					m_current_color+= clr_step;
+					if(m_current_color > 255)
+					{
+						m_current_color = 0;
+					}
+				}
+			}
+			else
+			{
+				AddressAllStrands(m_current_color,S,m_current_brightness);
+				m_current_brightness--;
+			}
+			
+		}
+		effect_timer.ResetElapsedTime();
 	}
 }

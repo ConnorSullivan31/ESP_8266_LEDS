@@ -24,8 +24,10 @@ void loop() {
   //Leds.BusyPattern();
   //DynamicAnimation.ColorCycle();
 
-  DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);
-  DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orange,Colors::white,Colors::purple,Colors::blue,Colors::red);
+    DynamicAnimation.BreathingColorCycle(5,5,Colors::fullcolor,Colors::fullbrightness);
+
+  //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);
+  //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orange,Colors::white,Colors::purple,Colors::blue,Colors::red);
   /*
   StaticPicture.USARedWhiteBlue();
   delay(1000);
