@@ -14,17 +14,17 @@ StaticEffects::~StaticEffects()
 
 void StaticEffects::USARedWhiteBlue()
 {
-	for(int i = 0; i < GetNumLeds(); i+=3)
+	for(int i = 0; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,red,fullcolor,fullbrightness,false);
 	}
-	for(int i = 1; i < GetNumLeds(); i+=3)
+	for(int i = 1; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
-	for(int i = 2; i < GetNumLeds(); i+=3)
+	for(int i = 2; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,blue,fullcolor,fullbrightness,false);
@@ -34,17 +34,17 @@ void StaticEffects::USARedWhiteBlue()
 
 void StaticEffects::PeppermintRWG()
 {
-	for(int i = 0; i < GetNumLeds(); i+=3)
+	for(int i = 0; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,red,fullcolor,fullbrightness,false);
 	}
-	for(int i = 1; i < GetNumLeds(); i+=3)
+	for(int i = 1; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
 	}
-	for(int i = 2; i < GetNumLeds(); i+=3)
+	for(int i = 2; i < NUM_LEDS; i+=3)
 	{
 
 		AddressAllStrandsSingle(i,green,fullcolor,fullbrightness,false);
@@ -54,12 +54,12 @@ void StaticEffects::PeppermintRWG()
 
 void StaticEffects::PeppermintRW()
 {
-	for(int i = 0; i < GetNumLeds(); i+=2)
+	for(int i = 0; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,red,fullcolor,fullbrightness,false);
 	}
-	for(int i = 1; i < GetNumLeds(); i+=2)
+	for(int i = 1; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
@@ -69,12 +69,12 @@ void StaticEffects::PeppermintRW()
 
 void StaticEffects::PeppermintRG()
 {
-	for(int i = 0; i < GetNumLeds(); i+=2)
+	for(int i = 0; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,red,fullcolor,fullbrightness,false);
 	}
-	for(int i = 1; i < GetNumLeds(); i+=2)
+	for(int i = 1; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,green,fullcolor,fullbrightness,false);
@@ -84,12 +84,12 @@ void StaticEffects::PeppermintRG()
 
 void StaticEffects::PeppermintGW()
 {
-	for(int i = 0; i < GetNumLeds(); i+=2)
+	for(int i = 0; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,green,fullcolor,fullbrightness,false);
 	}
-	for(int i = 1; i < GetNumLeds(); i+=2)
+	for(int i = 1; i < NUM_LEDS; i+=2)
 	{
 
 		AddressAllStrandsSingle(i,zerocolor,zerocolor,fullbrightness,false);
@@ -104,7 +104,7 @@ void StaticEffects::ShowColor(int clr)
 
 void  StaticEffects::ShowTwoColors(int clr1, int clr2)
 {
-	for(int i = 0; i < GetNumStrands(); i++)
+	for(int i = 0; i < NUM_STRANDS; i++)
 	{
 		if((i+2)%2==0)
 		{
