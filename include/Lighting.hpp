@@ -2,6 +2,9 @@
 #define Lighting_HPP
 #include <FastLED.h>
 
+#define TO_SECONDS 1000
+
+
 namespace Colors
 {
 extern int red;

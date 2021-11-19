@@ -72,9 +72,10 @@ void DynamicEffects::ColorCycle()
 
 void DynamicEffects::BreathingColorCycle(int dly, int clr_step, int S, int max_brightness)
 {
-	if(effect_timer.GetElapsedTime() > dly)
+	if(effect_timer.GetElapsedTime() > dly * (fullbrightness/max_brightness))//set fade times to be equivalent between brightness levels
 	{
-		
+		effect_timer.ResetElapsedTime();
+
 		if(m_fade_state == false)
 		{
 			if(m_current_brightness == max_brightness)//stop from fastled updating twice and causing a color pulse
@@ -119,6 +120,5 @@ void DynamicEffects::BreathingColorCycle(int dly, int clr_step, int S, int max_b
 			}
 			
 		}
-		effect_timer.ResetElapsedTime();
 	}
 }
