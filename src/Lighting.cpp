@@ -3,7 +3,7 @@
 //////////////////////
 //Create Strand Array
 CRGB LedStrandArray[NUM_STRANDS][NUM_LEDS];//Order is Right to Left | Set size in headers
-enum StrandOrder{RightStrand = 0, LeftStrand = 1, Strand3 = 2, Strand4 = 3};//Order the leds | Set size in headers
+enum StrandOrder{RightStrand = 0, LeftStrand = 1, ExtraStrand = 2};//Order the leds | Set size in headers
 //////////////////////
 
 

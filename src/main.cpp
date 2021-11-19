@@ -22,14 +22,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
-  //DynamicAnimation.ColorCycle();
-if(BaseTimer.GetElapsedTime() >0 && BaseTimer.GetElapsedTime() < 15*TO_SECONDS)
-    DynamicAnimation.BreathingColorCycle(5,5,191,Colors::halfbrightness);
-if(BaseTimer.GetElapsedTime() >15*TO_SECONDS && BaseTimer.GetElapsedTime() < 30*TO_SECONDS)
-{
+  //DynamicAnimation.ColorCycle(20);
   DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
-  BaseTimer.ResetElapsedTime();
-}
 
     
   //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);

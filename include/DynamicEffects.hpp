@@ -13,8 +13,11 @@ public:
 	void ResetMbrVars();
 	//Effects
 	void CycleColorList(int S,int V, int dly, int clr_cnt, ...);
-	void ColorCycle();
+	void ColorCycle(int dly);
 	void BreathingColorCycle(int dly, int clr_step, int S = 255, int max_brightness = 63);
+	void RandomColor(int dly, int S, int V);//New
+	void RandomColorCycle(int dly);//New
+	//void RandomColors(int dly);//New
 
 protected:
 
