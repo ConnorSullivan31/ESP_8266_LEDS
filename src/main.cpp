@@ -3,7 +3,12 @@
 #include "DynamicEffects.hpp"
 #include "StaticEffects.hpp"
 #include "Timing.hpp"
-
+/*
+*
+Warning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Don not forget to call ResetMbrVars() in between Dynamic animation method calls
+*
+*/
 
 Lighting Leds;
 DynamicEffects DynamicAnimation;
@@ -23,9 +28,12 @@ void loop() {
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
   //DynamicAnimation.ColorCycle(20);
-  DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
+  //DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
+  //DynamicAnimation.RandomColor(1*TO_SECONDS,255,255);
+  //DynamicAnimation.RandomColorCycle(30, Colors::fullcolor, Colors::fullbrightness);
+    DynamicAnimation.RandomColorsAll(100,Colors::fullcolor,Colors::fullbrightness);
 
-    
+
   //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);
   //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orange,Colors::white,Colors::purple,Colors::blue,Colors::red);
   /*

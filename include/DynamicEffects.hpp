@@ -4,6 +4,8 @@
 #include <FastLED.h>
 #include "Lighting.hpp"
 
+#define MAX_CLR_SV_ARR_SZ 16
+
 class DynamicEffects : public Lighting
 {
 public:
@@ -15,18 +17,21 @@ public:
 	void CycleColorList(int S,int V, int dly, int clr_cnt, ...);
 	void ColorCycle(int dly);
 	void BreathingColorCycle(int dly, int clr_step, int S = 255, int max_brightness = 63);
-	void RandomColor(int dly, int S, int V);//New
-	void RandomColorCycle(int dly);//New
-	//void RandomColors(int dly);//New
+	void RandomColor(int dly, int S, int V);
+	void RandomColorCycle(int dly, int S, int V);
+	void RandomColorsAll(int dly, int S, int V);//New
 
 protected:
 
-private:
+private://Make Sure that these variables are reset between each effect call
 	int m_current_led;
 	int m_current_color;
 	int m_current_brightness;
 	int m_step_counter;
 	bool m_fade_state;
+	bool m_first_call;
+	//Let the array save values in between resets
+	int m_val_sv[NUM_STRANDS][MAX_CLR_SV_ARR_SZ];
 };
 
 
