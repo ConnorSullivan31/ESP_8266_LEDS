@@ -21,6 +21,7 @@ public:
 	void RandomColorCycle(int dly, int S, int V);//Fades all leds between colors like color cycle but in no order
 	void RandomColorsAll(int dly, int S, int V);//instantly changes each leds to a new random color
 	void RandomColorsAllFading(int dly, int S, int V);//Fades each led between colors
+	void RandomAllValsFade(int dly);//Fades hue, sat, and val between each led
 
 protected:
 

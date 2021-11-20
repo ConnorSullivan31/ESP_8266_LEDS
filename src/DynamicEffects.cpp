@@ -253,3 +253,89 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 		}
 	}
 }
+
+void DynamicEffects::RandomAllValsFade(int dly)
+{
+	if(effect_timer.GetElapsedTime() > dly)
+	{
+		if(m_first_call)
+		{
+			for(int i = 0; i < NUM_STRANDS; i++)//Initialize all Leds to random colors
+			{
+				for(int j = 0; j < NUM_LEDS; j++)
+				{
+					m_led_array_storage[0][i][j] = rand()%255;//Set values for fade from
+					m_led_array_storage[2][i][j] = rand()%255;//Set values for saturation to fade from
+					m_led_array_storage[4][i][j] = rand()%255;//Set values for brightness to fade from
+					AddressSingleStrandSingle(i,j,m_led_array_storage[0][i][j],m_led_array_storage[2][i][j],m_led_array_storage[4][i][j],false);
+				}
+			}
+
+			for(int i = 0; i < NUM_STRANDS; i++)//Set Each Led to have two random values to fade between
+			{
+				for(int j = 0; j < NUM_LEDS; j++)//Using second of 16 strand arrays to hold hue values to fade to
+				{
+					m_led_array_storage[1][i][j] = rand()%255;//Set values for fade to
+					m_led_array_storage[3][i][j] = rand()%255;//Set sat values for fade to
+					m_led_array_storage[5][i][j] = rand()%255;//Set brightness values for fade to
+				}
+			}
+			FastLED.show();
+			m_first_call = false;
+		}
+
+		if(m_first_call == false)
+		{
+			for(int i = 0; i < NUM_STRANDS; i++)//Iterate through each led and change its value by one closer to the second fade val
+			{
+				for(int j = 0; j < NUM_LEDS; j++)
+				{
+					if(m_led_array_storage[0][i][j] < m_led_array_storage[1][i][j])//REM: Use the first two arrays of Led arrays to hold hue vals
+					{
+						m_led_array_storage[0][i][j]++;
+					}
+					else if(m_led_array_storage[0][i][j] > m_led_array_storage[1][i][j])//REM: Use the first two arrays of Led arrays to hold hue vals
+					{
+						m_led_array_storage[0][i][j]--;
+					}
+					else if(m_led_array_storage[0][i][j] == m_led_array_storage[1][i][j])//REM: Use the first two arrays of Led arrays to hold hue vals
+					{
+						m_led_array_storage[1][i][j] = rand()%255;//Set new value for fade to					
+					}
+					
+					//Sat Vals
+					if(m_led_array_storage[2][i][j] < m_led_array_storage[3][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[2][i][j]++;
+					}
+					else if(m_led_array_storage[2][i][j] > m_led_array_storage[3][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[2][i][j]--;
+					}
+					else if(m_led_array_storage[2][i][j] == m_led_array_storage[3][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[3][i][j] = rand()%255;//Set new value for fade to					
+					}
+
+					//Brightness Vals
+					if(m_led_array_storage[4][i][j] < m_led_array_storage[5][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[4][i][j]++;
+					}
+					else if(m_led_array_storage[4][i][j] > m_led_array_storage[5][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[4][i][j]--;
+					}
+					else if(m_led_array_storage[4][i][j] == m_led_array_storage[5][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
+					{
+						m_led_array_storage[5][i][j] = rand()%255;//Set new value for fade to					
+					}
+
+					AddressSingleStrandSingle(i,j,m_led_array_storage[0][i][j],m_led_array_storage[2][i][j],m_led_array_storage[4][i][j],false);
+				}
+			}
+			FastLED.show();
+			effect_timer.ResetElapsedTime();
+		}
+	}
+}
