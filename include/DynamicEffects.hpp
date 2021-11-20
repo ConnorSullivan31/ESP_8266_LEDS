@@ -19,7 +19,8 @@ public:
 	void BreathingColorCycle(int dly, int clr_step, int S = 255, int max_brightness = 63);
 	void RandomColor(int dly, int S, int V);
 	void RandomColorCycle(int dly, int S, int V);
-	void RandomColorsAll(int dly, int S, int V);//New
+	void RandomColorsAll(int dly, int S, int V);
+	void RandomColorsAllFading(int dly, int S, int V);
 
 protected:
 
@@ -31,7 +32,8 @@ private://Make Sure that these variables are reset between each effect call
 	bool m_fade_state;
 	bool m_first_call;
 	//Let the array save values in between resets
-	int m_val_sv[NUM_STRANDS][MAX_CLR_SV_ARR_SZ];
+	int m_val_storage[NUM_STRANDS][MAX_CLR_SV_ARR_SZ];
+	int m_led_array_storage[MAX_CLR_SV_ARR_SZ][NUM_STRANDS][NUM_LEDS];
 };
 
 

@@ -25,31 +25,26 @@ void setup() {
 }
 
 void loop() {
+/*
+*
+Warning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Don not forget to call ResetMbrVars() in between Dynamic animation method calls
+*
+*/
+
+
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
   //DynamicAnimation.ColorCycle(20);
   //DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
+
+    DynamicAnimation.RandomColorsAllFading(25, Colors::fullcolor, Colors::fullbrightness);
+
   //DynamicAnimation.RandomColor(1*TO_SECONDS,255,255);
   //DynamicAnimation.RandomColorCycle(30, Colors::fullcolor, Colors::fullbrightness);
-    DynamicAnimation.RandomColorsAll(100,Colors::fullcolor,Colors::fullbrightness);
+  //DynamicAnimation.RandomColorsAll(100,Colors::fullcolor,Colors::fullbrightness);
 
 
   //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orangeRed,Colors::aqua,Colors::pink,Colors::green,Colors::yellow);
   //DynamicAnimation.CycleColorList(Colors::fullcolor,Colors::fullbrightness,2000,5,Colors::orange,Colors::white,Colors::purple,Colors::blue,Colors::red);
-  /*
-  StaticPicture.USARedWhiteBlue();
-  delay(1000);
-  StaticPicture.PeppermintRWG();
-  delay(1000);
-  StaticPicture.PeppermintRW();
-  delay(1000);
-  StaticPicture.PeppermintRG();
-  delay(1000);
-  StaticPicture.PeppermintGW();
-  delay(1000);
-  StaticPicture.ShowColor(Colors::yellow);
-  delay(1000);
-  StaticPicture.ShowTwoColors(Colors::purple,Colors::aqua);
-  delay(1000);*/
-  
 }
