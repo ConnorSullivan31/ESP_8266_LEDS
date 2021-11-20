@@ -17,10 +17,10 @@ public:
 	void CycleColorList(int S,int V, int dly, int clr_cnt, ...);
 	void ColorCycle(int dly);
 	void BreathingColorCycle(int dly, int clr_step, int S = 255, int max_brightness = 63);
-	void RandomColor(int dly, int S, int V);
-	void RandomColorCycle(int dly, int S, int V);
-	void RandomColorsAll(int dly, int S, int V);
-	void RandomColorsAllFading(int dly, int S, int V);
+	void RandomColor(int dly, int S, int V);//instantly changes all leds to a new random color
+	void RandomColorCycle(int dly, int S, int V);//Fades all leds between colors like color cycle but in no order
+	void RandomColorsAll(int dly, int S, int V);//instantly changes each leds to a new random color
+	void RandomColorsAllFading(int dly, int S, int V);//Fades each led between colors
 
 protected:
 

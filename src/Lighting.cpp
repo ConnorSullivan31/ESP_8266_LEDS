@@ -26,7 +26,7 @@ int quarterbrightness=63;
 int halfbrightness=127;
 int fullbrightness=255;
 int black=0;
-int white=256;
+int white=256;//Don't use this to set a value. For logic only
 }
 
 Lighting::Lighting()
