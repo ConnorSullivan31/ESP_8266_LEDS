@@ -145,7 +145,7 @@ void DynamicEffects::RandomColor(int dly, int S, int V)
 {
 	if(effect_timer.GetElapsedTime() > dly)
 	{
-		AddressAllStrands(rand()%255,S,V);
+		AddressAllStrands(rand()%256,S,V);
 		effect_timer.ResetElapsedTime();
 	}
 }
@@ -156,8 +156,8 @@ void DynamicEffects::RandomColorCycle(int dly, int S, int V)
 	{
 		if(m_first_call)
 		{
-		m_val_storage[0][0] = rand()%255;//create a random color and store it in a universal value storage array
-		m_current_color = rand()%255;
+		m_val_storage[0][0] = rand()%256;//create a random color and store it in a universal value storage array
+		m_current_color = rand()%256;
 			m_first_call = false;
 		}
 
@@ -175,7 +175,7 @@ void DynamicEffects::RandomColorCycle(int dly, int S, int V)
 			}
 			else if(m_current_color == m_val_storage[0][0])
 			{
-				m_val_storage[0][0] = rand()%255;
+				m_val_storage[0][0] = rand()%256;
 			}
 		}
 		effect_timer.ResetElapsedTime();
@@ -191,7 +191,7 @@ void DynamicEffects::RandomColorsAll(int dly, int S, int V)
 		{	
 			for(int j = 0; j < NUM_LEDS; j++)
 			{
-				AddressSingleStrandSingle(i,j,rand()%255,S,V,false);
+				AddressSingleStrandSingle(i,j,rand()%256,S,V,false);
 			}
 		}
 		FastLED.show();
@@ -209,7 +209,7 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 			{
 				for(int j = 0; j < NUM_LEDS; j++)
 				{
-					m_led_array_storage[0][i][j] = rand()%255;//Set values for fade from
+					m_led_array_storage[0][i][j] = rand()%256;//Set values for fade from
 					AddressSingleStrandSingle(i,j,m_led_array_storage[0][i][j],S,V,false);
 				}
 			}
@@ -218,7 +218,7 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 			{
 				for(int j = 0; j < NUM_LEDS; j++)//Using second of 16 strand arrays to hold hue values to fade to
 				{
-					m_led_array_storage[1][i][j] = rand()%255;//Set values for fade to
+					m_led_array_storage[1][i][j] = rand()%256;//Set values for fade to
 				}
 			}
 			FastLED.show();
@@ -243,7 +243,7 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 					}
 					else if(m_led_array_storage[0][i][j] == m_led_array_storage[1][i][j])//REM: Use the first two arrays of Led arrays to hold hue vals
 					{
-						m_led_array_storage[1][i][j] = rand()%255;//Set new value for fade to					
+						m_led_array_storage[1][i][j] = rand()%256;//Set new value for fade to					
 					}
 
 				}
@@ -264,9 +264,9 @@ void DynamicEffects::RandomAllValsFade(int dly)
 			{
 				for(int j = 0; j < NUM_LEDS; j++)
 				{
-					m_led_array_storage[0][i][j] = rand()%255;//Set values for fade from
-					m_led_array_storage[2][i][j] = rand()%255;//Set values for saturation to fade from
-					m_led_array_storage[4][i][j] = rand()%255;//Set values for brightness to fade from
+					m_led_array_storage[0][i][j] = rand()%256;//Set values for fade from
+					m_led_array_storage[2][i][j] = rand()%256;//Set values for saturation to fade from
+					m_led_array_storage[4][i][j] = rand()%256;//Set values for brightness to fade from
 					AddressSingleStrandSingle(i,j,m_led_array_storage[0][i][j],m_led_array_storage[2][i][j],m_led_array_storage[4][i][j],false);
 				}
 			}
@@ -275,9 +275,9 @@ void DynamicEffects::RandomAllValsFade(int dly)
 			{
 				for(int j = 0; j < NUM_LEDS; j++)//Using second of 16 strand arrays to hold hue values to fade to
 				{
-					m_led_array_storage[1][i][j] = rand()%255;//Set values for fade to
-					m_led_array_storage[3][i][j] = rand()%255;//Set sat values for fade to
-					m_led_array_storage[5][i][j] = rand()%255;//Set brightness values for fade to
+					m_led_array_storage[1][i][j] = rand()%256;//Set values for fade to
+					m_led_array_storage[3][i][j] = rand()%256;//Set sat values for fade to
+					m_led_array_storage[5][i][j] = rand()%256;//Set brightness values for fade to
 				}
 			}
 			FastLED.show();
@@ -300,7 +300,7 @@ void DynamicEffects::RandomAllValsFade(int dly)
 					}
 					else if(m_led_array_storage[0][i][j] == m_led_array_storage[1][i][j])//REM: Use the first two arrays of Led arrays to hold hue vals
 					{
-						m_led_array_storage[1][i][j] = rand()%255;//Set new value for fade to					
+						m_led_array_storage[1][i][j] = rand()%256;//Set new value for fade to					
 					}
 					
 					//Sat Vals
@@ -314,7 +314,7 @@ void DynamicEffects::RandomAllValsFade(int dly)
 					}
 					else if(m_led_array_storage[2][i][j] == m_led_array_storage[3][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
 					{
-						m_led_array_storage[3][i][j] = rand()%255;//Set new value for fade to					
+						m_led_array_storage[3][i][j] = rand()%256;//Set new value for fade to					
 					}
 
 					//Brightness Vals
@@ -328,7 +328,7 @@ void DynamicEffects::RandomAllValsFade(int dly)
 					}
 					else if(m_led_array_storage[4][i][j] == m_led_array_storage[5][i][j])//REM: Use the next two arrays of Led arrays to hold sat vals
 					{
-						m_led_array_storage[5][i][j] = rand()%255;//Set new value for fade to					
+						m_led_array_storage[5][i][j] = rand()%256;//Set new value for fade to					
 					}
 
 					AddressSingleStrandSingle(i,j,m_led_array_storage[0][i][j],m_led_array_storage[2][i][j],m_led_array_storage[4][i][j],false);
