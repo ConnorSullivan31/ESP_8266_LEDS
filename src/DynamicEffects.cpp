@@ -438,10 +438,10 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 				{
 					for(int j = 0; j < num_leds_to_twinkle; j++)
 					{
-						m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
+						m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
 																																							//Each zone is dynamic according to num_leds_to_twinkle
-						m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] = max_brightness;//Set the leds temp brightness to full
-						m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 0;//Use as twinkle fade indicator
+						m_led_array_storage[1][NUM_STRANDS][j] = max_brightness;//Set the leds temp brightness to full
+						m_led_array_storage[2][NUM_STRANDS][j] = 0;//Use as twinkle fade indicator
 					}
 				}
 
@@ -452,26 +452,26 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 				{
 					for(int j = 0; j < num_leds_to_twinkle; j++)
 					{
-						if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] > 0 && m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] == 0)//Fade out
+						if(m_led_array_storage[1][NUM_STRANDS][j] > 0 && m_led_array_storage[2][NUM_STRANDS][j] == 0)//Fade out
 						{
-							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle]],S,m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle],false);
-							m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle]--;
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][j]],S,m_led_array_storage[1][NUM_STRANDS][j],false);
+							m_led_array_storage[1][NUM_STRANDS][j]--;
 						}
-						else if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] == 0)//Check if faded out
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == 0)//Check if faded out
 						{
-							m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 1;
+							m_led_array_storage[2][NUM_STRANDS][j] = 1;
 						}
 
-						if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] < max_brightness && m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] == 1)//Fade in
+						if(m_led_array_storage[1][NUM_STRANDS][j] < max_brightness && m_led_array_storage[2][NUM_STRANDS][j] == 1)//Fade in
 						{
-							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle]],S,m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle],false);
-							m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle]++;
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][j]],S,m_led_array_storage[1][NUM_STRANDS][j],false);
+							m_led_array_storage[1][NUM_STRANDS][j]++;
 						}
-						else if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] == max_brightness)//Check if fade in is complete
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == max_brightness)//Check if fade in is complete
 						{
-							m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Set new random LED from each zone to be faded
+							m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Set new random LED from each zone to be faded
 																																							//Each zone is dynamic according to num_leds_to_twinkled
-							m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 0;//reset twinkle state
+							m_led_array_storage[2][NUM_STRANDS][j] = 0;//reset twinkle state
 						}
 					}
 				}
