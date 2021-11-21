@@ -24,7 +24,7 @@ public:
 	void RandomAllValsFade(int dly);//Fades hue, sat, and val between each led
 	//Christmas Effects
 	void ChristmasOriginalBreathing(int dly, int max_brightness);
-	void ChristmasOriginalTwinkling(int dly, int S, int max_brightness);
+	void ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness);
 
 protected:
 

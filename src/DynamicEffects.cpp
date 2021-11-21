@@ -420,52 +420,67 @@ void DynamicEffects::ChristmasOriginalBreathing(int dly, int max_brightness)
 	}
 }
 
-void DynamicEffects::ChristmasOriginalTwinkling(int dly, int S, int max_brightness)
+void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness)
 {
-	if(effect_timer.GetElapsedTime() > dly)
+	if(num_leds_to_twinkle <= NUM_LEDS)
 	{
-		if(m_init_state)
+		if(effect_timer.GetElapsedTime() > dly * (fullbrightness/max_brightness))
 		{
-			for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to Christmas Color
-					{
-						AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, max_brightness,false);
-					}
-					FastLED.show();
-
-			for(int i = 0; i < NUM_STRANDS; i++)
+			if(m_init_state)
 			{
-				m_val_storage[i][0] = rand()%NUM_LEDS;//Pick random LED to be faded and save the value
-				m_val_storage[i][1] = max_brightness;//Set the leds temp brightness to full
-				m_val_storage[i][2] = 0;//Use as twinkle fade indicator
+				for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to Christmas Color
+						{
+							AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, max_brightness,false);
+						}
+						FastLED.show();
+
+				for(int i = 0; i < NUM_STRANDS; i++)
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
+																																							//Each zone is dynamic according to num_leds_to_twinkle
+						m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] = max_brightness;//Set the leds temp brightness to full
+						m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 0;//Use as twinkle fade indicator
+					}
+				}
+
+				m_init_state = false;	
 			}
 
-			m_init_state = false;	
+				for(int i = 0; i < NUM_STRANDS; i++)//Fading In-Out Loop
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] > 0 && m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] == 0)//Fade out
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle]],S,m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle],false);
+							m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle]--;
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] == 0)//Check if faded out
+						{
+							m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 1;
+						}
+
+						if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] < max_brightness && m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] == 1)//Fade in
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle]],S,m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle],false);
+							m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle]++;
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][num_leds_to_twinkle] == max_brightness)//Check if fade in is complete
+						{
+							m_led_array_storage[0][NUM_STRANDS][num_leds_to_twinkle] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Set new random LED from each zone to be faded
+																																							//Each zone is dynamic according to num_leds_to_twinkled
+							m_led_array_storage[2][NUM_STRANDS][num_leds_to_twinkle] = 0;//reset twinkle state
+						}
+					}
+				}
+			FastLED.show();
+			effect_timer.ResetElapsedTime();//Reset Elapsed Timer
 		}
-
-			for(int i = 0; i < NUM_STRANDS; i++)//Fading In-Out Loop
-			{
-					if(m_val_storage[i][1] > 0 && m_val_storage[i][2] == 0)//Fade out
-					{
-						AddressSingleStrandSingle(i,m_val_storage[i][0],m_old_christmas_colors[m_val_storage[i][0]],S,m_val_storage[i][1],false);
-						m_val_storage[i][1]--;
-					}
-					else if(m_val_storage[i][1] == 0)//Check if faded out
-					{
-						m_val_storage[i][2] = 1;
-					}
-
-					if(m_val_storage[i][1] < max_brightness && m_val_storage[i][2] == 1)//Fade in
-					{
-						AddressSingleStrandSingle(i,m_val_storage[i][0],m_old_christmas_colors[m_val_storage[i][0]],S,m_val_storage[i][1],false);
-						m_val_storage[i][1]++;
-					}
-					else if(m_val_storage[i][1] == max_brightness)//Check if fade in is complete
-					{
-						m_val_storage[i][0] = rand()%NUM_LEDS;//Set new random led to be twinkled
-						m_val_storage[i][2] = 0;//reset twinkle state
-					}
-			}
-		FastLED.show();
-		effect_timer.ResetElapsedTime();//Reset Elapsed Timer
+	}
+	else
+	{
+		num_leds_to_twinkle = NUM_LEDS;//Cap user input to max number of leds
 	}
 }
