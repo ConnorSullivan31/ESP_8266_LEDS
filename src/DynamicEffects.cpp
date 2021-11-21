@@ -12,13 +12,7 @@ DynamicEffects::DynamicEffects()
 	//Seed the rand() function
 	srand(effect_timer.GetProgramEpoch()*rand()%511 + 23312721);
 	ResetMbrVars();
-	for(int i = 0; i < NUM_STRANDS; i++)
-	{
-		for(int j = 0; j < MAX_CLR_SV_ARR_SZ; j++)
-		{
-			m_val_storage[i][j] = 0;//Initialize array to zero
-		}
-	}
+	InitChristmasColors();//Load colors into christmas colors array
 }
 
 DynamicEffects::~DynamicEffects()
@@ -33,10 +27,26 @@ void DynamicEffects::ResetMbrVars()//set all iteration variables here
 	m_current_led = 0;
 	m_current_brightness = 0;
 	m_fade_state = false;
-	m_first_call = true;
+	m_init_state = true;
 }
 
 //Effects
+
+void DynamicEffects::InitChristmasColors()
+{
+for(int i = 0; i < NUM_LEDS; i+=5)
+{
+//Set first led to red, second to blue, third to green, fourth to yellow, and fifth to pink
+//These colors are chosen to closely match thos of old incandescent colored Christmas lights
+		m_old_christmas_colors[i] = 0;//Default Red Val is 0
+		m_old_christmas_colors[i+1] = 160;//Default Blue Val is 160
+		m_old_christmas_colors[i+2] = 86;//Default Green Val is 96
+		m_old_christmas_colors[i+3] = 44;//Default Yellow Val is 64
+		m_old_christmas_colors[i+4] = 245;//Default Pink Val is 224
+}
+}
+
+
 void DynamicEffects::CycleColorList(int S, int V, int dly, int clr_cnt, ...)
 {
 	int selected_clr;
@@ -154,14 +164,14 @@ void DynamicEffects::RandomColorCycle(int dly, int S, int V)
 {
 	if(effect_timer.GetElapsedTime() > dly)
 	{
-		if(m_first_call)
+		if(m_init_state)
 		{
 		m_val_storage[0][0] = rand()%256;//create a random color and store it in a universal value storage array
 		m_current_color = rand()%256;
-			m_first_call = false;
+			m_init_state = false;
 		}
 
-		if(m_first_call == false)
+		if(m_init_state == false)
 		{
 			if(m_current_color < m_val_storage[0][0])//REM: there is an array of 16 integer values for each strand
 			{
@@ -203,7 +213,7 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 {
 	if(effect_timer.GetElapsedTime() > dly)
 	{
-		if(m_first_call)
+		if(m_init_state)
 		{
 			for(int i = 0; i < NUM_STRANDS; i++)//Initialize all Leds to random colors
 			{
@@ -222,10 +232,10 @@ void DynamicEffects::RandomColorsAllFading(int dly, int S, int V)
 				}
 			}
 			FastLED.show();
-			m_first_call = false;
+			m_init_state = false;
 		}
 
-		if(m_first_call == false)
+		if(m_init_state == false)
 		{
 			for(int i = 0; i < NUM_STRANDS; i++)//Iterate through each led and change its value by one closer to the second fade val
 			{
@@ -258,7 +268,7 @@ void DynamicEffects::RandomAllValsFade(int dly)
 {
 	if(effect_timer.GetElapsedTime() > dly)
 	{
-		if(m_first_call)
+		if(m_init_state)
 		{
 			for(int i = 0; i < NUM_STRANDS; i++)//Initialize all Leds to random colors
 			{
@@ -281,10 +291,10 @@ void DynamicEffects::RandomAllValsFade(int dly)
 				}
 			}
 			FastLED.show();
-			m_first_call = false;
+			m_init_state = false;
 		}
 
-		if(m_first_call == false)
+		if(m_init_state == false)
 		{
 			for(int i = 0; i < NUM_STRANDS; i++)//Iterate through each led and change its value by one closer to the second fade val
 			{
@@ -337,5 +347,125 @@ void DynamicEffects::RandomAllValsFade(int dly)
 			FastLED.show();
 			effect_timer.ResetElapsedTime();
 		}
+	}
+}
+
+/*
+*
+*Christmas Effects
+*
+*/
+
+void DynamicEffects::ChristmasOriginalBreathing(int dly, int max_brightness)
+{
+	if(effect_timer.GetElapsedTime() > dly * (fullbrightness/max_brightness))//set fade times to be equivalent between brightness levels
+	{
+		effect_timer.ResetElapsedTime();/*This Reset has to be at the top to reset the time right away to keep the time between the different
+										bightness setting the same. If it was at the bottom, it would be a consistent time between calls. Up here,
+										it starts recording while the fade op is going on. This way there is a consitent delay from each each execution
+										 and call of the function, not just between function calls. We don't limit the color range normally,
+										 so we should keep the Reset method ad the bottom unless we decide to only use a small color range.*/
+
+		if(m_fade_state == false)
+		{
+			if(m_init_state)
+			{	
+				m_init_state = false;
+				m_current_brightness = max_brightness;
+
+				for(int i = 0; i < NUM_LEDS; i++)
+					{
+						AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, m_current_brightness,false);
+					}
+					FastLED.show();
+			}
+			
+			if(m_current_brightness >= max_brightness)//stop from fastled updating twice and causing a color pulse
+			{
+					m_current_brightness = max_brightness;
+					m_fade_state = true;
+			}
+			else
+			{
+				for(int i = 0; i < NUM_LEDS; i++)
+					{
+						AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, m_current_brightness,false);
+					}
+					FastLED.show();
+				m_current_brightness++;
+				m_fade_state = false;
+			}
+			
+		}
+
+		if(m_fade_state == true)
+		{
+			if(m_current_brightness <= 0)
+			{
+					m_current_brightness = 0;
+					m_fade_state = false;
+			}
+			else
+			{
+				for(int i = 0; i < NUM_LEDS; i++)
+					{
+						AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, m_current_brightness,false);
+					}
+					FastLED.show();
+				m_current_brightness--;
+				m_fade_state = true;
+			}
+			
+		}
+	}
+}
+
+void DynamicEffects::ChristmasOriginalTwinkling(int dly, int S, int max_brightness)
+{
+	if(effect_timer.GetElapsedTime() > dly)
+	{
+		if(m_init_state)
+		{
+			for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to Christmas Color
+					{
+						AddressAllStrandsSingle(i, m_old_christmas_colors[i],Colors::fullcolor, max_brightness,false);
+					}
+					FastLED.show();
+
+			for(int i = 0; i < NUM_STRANDS; i++)
+			{
+				m_val_storage[i][0] = rand()%NUM_LEDS;//Pick random LED to be faded and save the value
+				m_val_storage[i][1] = max_brightness;//Set the leds temp brightness to full
+				m_val_storage[i][2] = 0;//Use as twinkle fade indicator
+			}
+
+			m_init_state = false;	
+		}
+
+			for(int i = 0; i < NUM_STRANDS; i++)//Fading In-Out Loop
+			{
+					if(m_val_storage[i][1] > 0 && m_val_storage[i][2] == 0)//Fade out
+					{
+						AddressSingleStrandSingle(i,m_val_storage[i][0],m_old_christmas_colors[m_val_storage[i][0]],S,m_val_storage[i][1],false);
+						m_val_storage[i][1]--;
+					}
+					else if(m_val_storage[i][1] == 0)//Check if faded out
+					{
+						m_val_storage[i][2] = 1;
+					}
+
+					if(m_val_storage[i][1] < max_brightness && m_val_storage[i][2] == 1)//Fade in
+					{
+						AddressSingleStrandSingle(i,m_val_storage[i][0],m_old_christmas_colors[m_val_storage[i][0]],S,m_val_storage[i][1],false);
+						m_val_storage[i][1]++;
+					}
+					else if(m_val_storage[i][1] == max_brightness)//Check if fade in is complete
+					{
+						m_val_storage[i][0] = rand()%NUM_LEDS;//Set new random led to be twinkled
+						m_val_storage[i][2] = 0;//reset twinkle state
+					}
+			}
+		FastLED.show();
+		effect_timer.ResetElapsedTime();//Reset Elapsed Timer
 	}
 }

@@ -22,19 +22,24 @@ public:
 	void RandomColorsAll(int dly, int S, int V);//instantly changes each leds to a new random color
 	void RandomColorsAllFading(int dly, int S, int V);//Fades each led between colors
 	void RandomAllValsFade(int dly);//Fades hue, sat, and val between each led
+	//Christmas Effects
+	void ChristmasOriginalBreathing(int dly, int max_brightness);
+	void ChristmasOriginalTwinkling(int dly, int S, int max_brightness);
 
 protected:
 
 private://Make Sure that these variables are reset between each effect call
+		void InitChristmasColors();
 	int m_current_led;
 	int m_current_color;
 	int m_current_brightness;
 	int m_step_counter;
 	bool m_fade_state;
-	bool m_first_call;
+	bool m_init_state;
 	//Let the array save values in between resets
 	int m_val_storage[NUM_STRANDS][MAX_CLR_SV_ARR_SZ];
 	int m_led_array_storage[MAX_CLR_SV_ARR_SZ][NUM_STRANDS][NUM_LEDS];
+	int m_old_christmas_colors[NUM_LEDS];
 };
 
 

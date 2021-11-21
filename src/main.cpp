@@ -35,11 +35,14 @@ Don not forget to call ResetMbrVars() in between Dynamic animation method calls
 
   // put your main code here, to run repeatedly:
   //Leds.BusyPattern();
+  //StaticPicture.ChristmasOriginal(Colors::fullcolor,Colors::fullbrightness);
+  //DynamicAnimation.ChristmasOriginalBreathing(15,Colors::fullbrightness);
+    DynamicAnimation.ChristmasOriginalTwinkling(15,Colors::fullcolor,Colors::fullbrightness);
   //DynamicAnimation.ColorCycle(20);
   //DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
 
    // DynamicAnimation.RandomColorsAllFading(25, Colors::fullcolor, Colors::halfbrightness-35);
-   DynamicAnimation.RandomAllValsFade(20);
+   //DynamicAnimation.RandomAllValsFade(20);
 
   //DynamicAnimation.RandomColor(1*TO_SECONDS,255,255);
   //DynamicAnimation.RandomColorCycle(30, Colors::fullcolor, Colors::fullbrightness);
