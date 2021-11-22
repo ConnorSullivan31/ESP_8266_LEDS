@@ -350,6 +350,104 @@ void DynamicEffects::RandomAllValsFade(int dly)
 	}
 }
 
+
+
+void DynamicEffects::SingleColorTwinkling(int dly, int num_leds_to_twinkle,int H, int S, int max_brightness, bool randomize, int rand_fact)
+{
+	if(num_leds_to_twinkle <= NUM_LEDS)
+	{
+		if(effect_timer.GetElapsedTime() > dly)
+		{
+			if(m_init_state)
+			{
+				for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to Christmas Color
+						{
+							AddressAllStrandsSingle(i, H,Colors::fullcolor, max_brightness,false);
+						}
+						FastLED.show();
+
+				for(int i = 0; i < NUM_STRANDS; i++)
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
+																																		  //Each zone is dynamic according to num_leds_to_twinkle
+						
+						if(randomize == true)
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = rand()%max_brightness;//Set the leds temp brightness to random if random is on
+						}
+						else
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = max_brightness;//Set the leds temp brightness to full
+						}
+						m_led_array_storage[2][NUM_STRANDS][j] = 0;//Use as twinkle fade indicator
+					}
+				}
+
+				m_init_state = false;	
+			}
+
+				for(int i = 0; i < NUM_STRANDS; i++)//Fading In-Out Loop
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						if(m_led_array_storage[1][NUM_STRANDS][j] > 0 && m_led_array_storage[2][NUM_STRANDS][j] == 0)//Fade out
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],H,S,m_led_array_storage[1][NUM_STRANDS][j],false);
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] - rand_fact > 0 && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] -= rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]--;
+							}
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == 0)//Check if faded out
+						{
+							m_led_array_storage[2][NUM_STRANDS][j] = 1;
+						}
+
+						if(m_led_array_storage[1][NUM_STRANDS][j] < max_brightness && m_led_array_storage[2][NUM_STRANDS][j] == 1)//Fade in
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],H,S,m_led_array_storage[1][NUM_STRANDS][j],false);
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] + rand_fact < max_brightness && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] += rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]++;
+							}
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == max_brightness)//Check if fade in is complete
+						{
+							m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Set new random LED from each zone to be faded
+																																							//Each zone is dynamic according to num_leds_to_twinkled
+							m_led_array_storage[2][NUM_STRANDS][j] = 0;//reset twinkle state
+						}
+					}
+				}
+			FastLED.show();
+			effect_timer.ResetElapsedTime();//Reset Elapsed Timer
+		}
+	}
+	else
+	{
+		num_leds_to_twinkle = NUM_LEDS;//Cap user input to max number of leds
+	}
+}
+
+
+
+
+
+
+
+
 /*
 *
 *Christmas Effects
@@ -439,8 +537,15 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 					for(int j = 0; j < num_leds_to_twinkle; j++)
 					{
 						m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
-																																							//Each zone is dynamic according to num_leds_to_twinkle
-						m_led_array_storage[1][NUM_STRANDS][j] = max_brightness;//Set the leds temp brightness to full
+																																		  //Each zone is dynamic according to num_leds_to_twinkle
+						if(randomize == true)
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = rand()%max_brightness;//Set the leds temp brightness to random if random is on
+						}
+						else
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = max_brightness;//Set the leds temp brightness to full
+						}
 						m_led_array_storage[2][NUM_STRANDS][j] = 0;//Use as twinkle fade indicator
 					}
 				}
@@ -473,6 +578,90 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 						if(m_led_array_storage[1][NUM_STRANDS][j] < max_brightness && m_led_array_storage[2][NUM_STRANDS][j] == 1)//Fade in
 						{
 							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][j]],S,m_led_array_storage[1][NUM_STRANDS][j],false);
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] + rand_fact < max_brightness && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] += rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]++;
+							}
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == max_brightness)//Check if fade in is complete
+						{
+							m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Set new random LED from each zone to be faded
+																																							//Each zone is dynamic according to num_leds_to_twinkled
+							m_led_array_storage[2][NUM_STRANDS][j] = 0;//reset twinkle state
+						}
+					}
+				}
+			FastLED.show();
+			effect_timer.ResetElapsedTime();//Reset Elapsed Timer
+		}
+	}
+	else
+	{
+		num_leds_to_twinkle = NUM_LEDS;//Cap user input to max number of leds
+	}
+}
+
+void DynamicEffects::SnowflakeTwinkling(int dly, int num_leds_to_twinkle, int max_brightness, bool randomize, int rand_fact)
+{
+	if(num_leds_to_twinkle <= NUM_LEDS)
+	{
+		if(effect_timer.GetElapsedTime() > dly)
+		{
+			if(m_init_state)
+			{;
+						AddressAllStrands(Colors::zerocolor,Colors::zerocolor,max_brightness);//Init strand to white
+
+				for(int i = 0; i < NUM_STRANDS; i++)
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						m_led_array_storage[0][NUM_STRANDS][j] = rand()%(NUM_LEDS/num_leds_to_twinkle) + j*(NUM_LEDS/num_leds_to_twinkle);//Pick random LED from each zone to be faded
+																																		 //Each zone is dynamic according to num_leds_to_twinkle
+						if(randomize == true)
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = rand()%max_brightness;//Set the leds temp brightness to random if random is on
+						}
+						else
+						{
+							m_led_array_storage[1][NUM_STRANDS][j] = max_brightness;//Set the leds temp brightness to full
+						}
+						m_led_array_storage[2][NUM_STRANDS][j] = 0;//Use as twinkle fade indicator
+					}
+				}
+
+				m_init_state = false;	
+			}
+
+				for(int i = 0; i < NUM_STRANDS; i++)//Fading In-Out Loop
+				{
+					for(int j = 0; j < num_leds_to_twinkle; j++)
+					{
+						if(m_led_array_storage[1][NUM_STRANDS][j] > 0 && m_led_array_storage[2][NUM_STRANDS][j] == 0)//Fade out
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],Colors::zerocolor,Colors::zerocolor,m_led_array_storage[1][NUM_STRANDS][j],false);
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] - rand_fact > 0 && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] -= rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]--;
+							}
+						}
+						else if(m_led_array_storage[1][NUM_STRANDS][j] == 0)//Check if faded out
+						{
+							m_led_array_storage[2][NUM_STRANDS][j] = 1;
+						}
+
+						if(m_led_array_storage[1][NUM_STRANDS][j] < max_brightness && m_led_array_storage[2][NUM_STRANDS][j] == 1)//Fade in
+						{
+							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],Colors::zerocolor,Colors::zerocolor,m_led_array_storage[1][NUM_STRANDS][j],false);
 							
 							if(m_led_array_storage[1][NUM_STRANDS][j] + rand_fact < max_brightness && randomize == true)//Randomize fade cycle timings for more organic twinkles
 							{

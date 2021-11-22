@@ -37,7 +37,16 @@ Don not forget to call ResetMbrVars() in between Dynamic animation method calls
   //Leds.BusyPattern();
   //StaticPicture.ChristmasOriginal(Colors::fullcolor,Colors::fullbrightness);
   //DynamicAnimation.ChristmasOriginalBreathing(15,Colors::fullbrightness);
-    DynamicAnimation.ChristmasOriginalTwinkling(70,50,Colors::fullcolor,Colors::quarterbrightness,true,10);
+
+
+      //DynamicAnimation.SnowflakeTwinkling(70,50,Colors::quarterbrightness,true,10);
+
+    DynamicAnimation.ChristmasOriginalTwinkling(70,20,Colors::fullcolor,Colors::quarterbrightness,true,10);
+  
+      //DynamicAnimation.SingleColorTwinkling(70,50,Colors::red,Colors::fullcolor,Colors::quarterbrightness,true,10);
+  
+  
+  
   //DynamicAnimation.ColorCycle(20);
   //DynamicAnimation.BreathingColorCycle(5,5,191,Colors::fullbrightness);
 

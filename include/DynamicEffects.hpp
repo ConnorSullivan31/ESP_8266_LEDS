@@ -22,12 +22,25 @@ public:
 	void RandomColorsAll(int dly, int S, int V);//instantly changes each leds to a new random color
 	void RandomColorsAllFading(int dly, int S, int V);//Fades each led between colors
 	void RandomAllValsFade(int dly);//Fades hue, sat, and val between each led
+	void SingleColorTwinkling(int dly, int num_leds_to_twinkle,int H, int S, int max_brightness, bool randomize = true, int rand_fact = 5);/*
+	Note: Randomiztion takes about 20 cycles before it acutaly looks random due to way randomization is implemented.
+	Could reduce rand factor to make fading slower but randomization would take longer or vice-versa. 5 is happy medium
+	*/
+
+
+
 	//Christmas Effects
 	void ChristmasOriginalBreathing(int dly, int max_brightness);
 	void ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness, bool randomize = true, int rand_fact = 5);/*
 	Note: Randomiztion takes about 20 cycles before it acutaly looks random due to way randomization is implemented.
 	Could reduce rand factor to make fading slower but randomization would take longer or vice-versa. 5 is happy medium
 	*/
+	void SnowflakeTwinkling(int dly, int num_leds_to_twinkle, int max_brightness, bool randomize = true, int rand_fact = 5);/*
+	Note: Randomiztion takes about 20 cycles before it acutaly looks random due to way randomization is implemented.
+	Could reduce rand factor to make fading slower but randomization would take longer or vice-versa. 5 is happy medium
+	*/
+
+
 
 
 protected:
