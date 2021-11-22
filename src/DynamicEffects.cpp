@@ -420,11 +420,11 @@ void DynamicEffects::ChristmasOriginalBreathing(int dly, int max_brightness)
 	}
 }
 
-void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness)
+void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness, bool randomize, int rand_fact)
 {
 	if(num_leds_to_twinkle <= NUM_LEDS)
 	{
-		if(effect_timer.GetElapsedTime() > dly * (fullbrightness/max_brightness))
+		if(effect_timer.GetElapsedTime() > dly)
 		{
 			if(m_init_state)
 			{
@@ -455,7 +455,15 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 						if(m_led_array_storage[1][NUM_STRANDS][j] > 0 && m_led_array_storage[2][NUM_STRANDS][j] == 0)//Fade out
 						{
 							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][j]],S,m_led_array_storage[1][NUM_STRANDS][j],false);
-							m_led_array_storage[1][NUM_STRANDS][j]--;
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] - rand_fact > 0 && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] -= rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]--;
+							}
 						}
 						else if(m_led_array_storage[1][NUM_STRANDS][j] == 0)//Check if faded out
 						{
@@ -465,7 +473,15 @@ void DynamicEffects::ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle
 						if(m_led_array_storage[1][NUM_STRANDS][j] < max_brightness && m_led_array_storage[2][NUM_STRANDS][j] == 1)//Fade in
 						{
 							AddressSingleStrandSingle(i,m_led_array_storage[0][NUM_STRANDS][j],m_old_christmas_colors[m_led_array_storage[0][NUM_STRANDS][j]],S,m_led_array_storage[1][NUM_STRANDS][j],false);
-							m_led_array_storage[1][NUM_STRANDS][j]++;
+							
+							if(m_led_array_storage[1][NUM_STRANDS][j] + rand_fact < max_brightness && randomize == true)//Randomize fade cycle timings for more organic twinkles
+							{
+								m_led_array_storage[1][NUM_STRANDS][j] += rand()%rand_fact;//Offset from others by a randomization factor of 5
+							}
+							else//if rand would be out of bounds, just decrement by 1 like normal
+							{
+								m_led_array_storage[1][NUM_STRANDS][j]++;
+							}
 						}
 						else if(m_led_array_storage[1][NUM_STRANDS][j] == max_brightness)//Check if fade in is complete
 						{

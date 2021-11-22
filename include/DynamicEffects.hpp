@@ -24,7 +24,11 @@ public:
 	void RandomAllValsFade(int dly);//Fades hue, sat, and val between each led
 	//Christmas Effects
 	void ChristmasOriginalBreathing(int dly, int max_brightness);
-	void ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness);
+	void ChristmasOriginalTwinkling(int dly, int num_leds_to_twinkle, int S, int max_brightness, bool randomize = true, int rand_fact = 5);/*
+	Note: Randomiztion takes about 20 cycles before it acutaly looks random due to way randomization is implemented.
+	Could reduce rand factor to make fading slower but randomization would take longer or vice-versa. 5 is happy medium
+	*/
+
 
 protected:
 
