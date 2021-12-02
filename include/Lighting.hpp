@@ -19,6 +19,7 @@ FASTLED_USING_NAMESPACE
 
 #define BRIGHTNESS         255//96 was the original value
 #define FRAMES_PER_SECOND  120//Maybe I'll use this one day
+
 #define TO_SECONDS 1000 //Used to change delays to seconds
 //////////////////////////
 
