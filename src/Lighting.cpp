@@ -72,7 +72,6 @@ void Lighting::ResetToBlack(bool show_reset)
 		for(int j = 0; j < NUM_LEDS; j++)//Set LEDs to black
 		{
 		LedStrandArray[i][j] = CRGB::Black;
-		LedStrandArray[i][j] = CRGB::Black;
 		}
 	}
 	if(show_reset)
