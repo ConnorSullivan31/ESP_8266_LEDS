@@ -44,6 +44,12 @@ void Lighting::InitFastLED()
 {
 	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[RightStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Right Strand
 	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[LeftStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Left Strand
+	/*
+	*
+	ADD ADDITIONAL STANDS HERE - SAME SETUP AS ABOVE
+	*
+	*/
+	
 	FastLED.setBrightness(BRIGHTNESS);
 }
 
@@ -61,10 +67,13 @@ int Lighting::GetNumLeds()
 
 void Lighting::ResetToBlack(bool show_reset)
 {
-	for(int i = 0; i < NUM_LEDS; i++)//Set LEDs to black
+	for(int i = 0; i < NUM_STRANDS; i++)
 	{
-	LedStrandArray[RightStrand][i] = CRGB::Black;
-	LedStrandArray[LeftStrand][i] = CRGB::Black;
+		for(int j = 0; j < NUM_LEDS; j++)//Set LEDs to black
+		{
+		LedStrandArray[i][j] = CRGB::Black;
+		LedStrandArray[i][j] = CRGB::Black;
+		}
 	}
 	if(show_reset)
 	{
