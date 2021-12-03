@@ -3,7 +3,6 @@
 //////////////////////
 //Create Strand Array
 CRGB LedStrandArray[NUM_STRANDS][NUM_LEDS];//Order is Right to Left | Set size in headers
-enum StrandOrder{RightStrand = 0, LeftStrand = 1, ExtraStrand = 2};//Order the leds | Set size in headers | Set pinout in InitFastLED
 //////////////////////
 
 
@@ -42,8 +41,8 @@ Lighting::~Lighting()
 
 void Lighting::InitFastLED()
 {
-	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[RightStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Right Strand
-	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[LeftStrand], NUM_LEDS).setCorrection(TypicalLEDStrip);//Left Strand
+	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[0], NUM_LEDS).setCorrection(TypicalLEDStrip);//Right Strand
+	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[1], NUM_LEDS).setCorrection(TypicalLEDStrip);//Left Strand
 	/*
 	*
 	ADD ADDITIONAL STANDS HERE - SAME SETUP AS ABOVE
@@ -94,10 +93,19 @@ void Lighting::TestStrands()
 	ResetToBlack();//Set Leds to black and make sure there are no stored colors
 	delay(10);//give leds a breather b4 starting up
 
-	for(int i = 0; i < NUM_LEDS; i++)//show all green and aqua as test
-	{
-	LedStrandArray[RightStrand][i].setHSV(green,fullcolor,fullbrightness);//Right Strand
-	LedStrandArray[LeftStrand][i].setHSV(aqua,fullcolor,fullbrightness);//Left Strand
+	for(int i = 0; i < NUM_STRANDS; i++)
+	{	
+		for(int j = 0; j < NUM_LEDS; j++)//show all green and aqua as test
+		{
+			if((i+2)%2==0)
+			{
+				LedStrandArray[i][j].setHSV(green,fullcolor,fullbrightness);//Right Strand
+			}
+			else
+			{
+				LedStrandArray[i][j].setHSV(aqua,fullcolor,fullbrightness);//Left Strand
+			}
+		}
 	}
 	FastLED.show();
 	
@@ -173,20 +181,24 @@ void Lighting::BusyPattern2()
 {
 	for(int hue = 0; hue<=255; hue++)
 	{
-		for(int i = 0; i < NUM_LEDS; i++)
+		for(int i = 0; i < NUM_STRANDS; i++)
 		{
-			LedStrandArray[RightStrand][i].setHSV(hue,255,255);//Right Strand
-			LedStrandArray[LeftStrand][i].setHSV(hue,255,255);//Left Strand
+			for(int j = 0; j < NUM_LEDS; j++)
+			{
+				LedStrandArray[i][j].setHSV(hue,255,255);
+			}
 		}
 		delay(30);
 		FastLED.show();
 	}
 	for(int hue = 255; hue>=0; hue--)
 	{
-		for(int i = 0; i < NUM_LEDS; i++)
+		for(int i = 0; i < NUM_STRANDS; i++)
 		{
-			LedStrandArray[RightStrand][i].setHSV(hue,255,hue);//Right Strand
-			LedStrandArray[LeftStrand][i].setHSV(hue,255,hue);//Left Strand
+			for(int j = 0; j < NUM_LEDS; j++)
+			{
+				LedStrandArray[i][j].setHSV(hue,255,hue);
+			}
 		}
 		delay(30);
 		FastLED.show();
