@@ -49,6 +49,8 @@ class Lighting
 public:
 	Lighting();
 	~Lighting();
+
+
 	void InitFastLED();
 	int GetNumStrands();
 	int GetNumLeds();
