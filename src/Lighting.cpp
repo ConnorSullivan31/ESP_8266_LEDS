@@ -1,6 +1,6 @@
 #include "Lighting.hpp"
 
-//////////////////////
+////////////////////////All Pin info is in the header file. Only this and the CRGB array are setup here
 //Create Strand Array
 CRGB LedStrandArray[NUM_STRANDS][NUM_LEDS];//Order is Right to Left | Set size in headers
 //////////////////////
@@ -36,10 +36,10 @@ InitFastLED();
 
 Lighting::~Lighting()
 {
-
+ResetToBlack();
 }
 
-void Lighting::InitFastLED()
+void Lighting::InitFastLED()//All Pin info is in the header file. Only this and the CRGB array are setup here
 {
 	FastLED.addLeds<CHIPSET_TYPE, RightStrandPin, COLOR_ORDER>(LedStrandArray[0], NUM_LEDS).setCorrection(TypicalLEDStrip);//Right Strand
 	FastLED.addLeds<CHIPSET_TYPE, LeftStrandPin, COLOR_ORDER>(LedStrandArray[1], NUM_LEDS).setCorrection(TypicalLEDStrip);//Left Strand

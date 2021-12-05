@@ -21,6 +21,7 @@ FASTLED_USING_NAMESPACE
 #define FRAMES_PER_SECOND  120//Maybe I'll use this one day
 
 #define TO_SECONDS 1000 //Used to change delays to seconds
+#define TO_MINUTES TO_SECONDS*60
 //////////////////////////
 
 namespace Colors
@@ -43,6 +44,7 @@ extern int fullbrightness;
 extern int black;
 extern int white;
 }
+
 
 class Lighting
 {
