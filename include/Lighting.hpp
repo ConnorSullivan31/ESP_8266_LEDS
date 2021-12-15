@@ -45,7 +45,6 @@ extern int black;
 extern int white;
 }
 
-
 class Lighting
 {
 public:
