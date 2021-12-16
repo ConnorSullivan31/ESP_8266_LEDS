@@ -3,6 +3,7 @@
 #include "DynamicEffects.hpp"
 #include "StaticEffects.hpp"
 #include "Timing.hpp"
+#include "Network.hpp"
 /*
 *
 Warning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -14,6 +15,7 @@ Lighting Leds;
 DynamicEffects DynamicAnimation;
 StaticEffects StaticPicture;
 
+Network Wireless;
 Timing BaseTimer;
 
 void setup() {
@@ -21,6 +23,7 @@ void setup() {
   delay(3000);//allow 3s for recovery
   Serial.begin(9600);
   Leds.TestStrands();
+  Wireless.CreateNetwork("Connor_Wi-Fi","Connor19216811");
   delay(1000);//set small delay again before program starts - May want to remove depending on program requirements
 }
 
