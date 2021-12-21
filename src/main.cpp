@@ -28,6 +28,10 @@ void setup() {
 }
 
 void loop() {
+
+
+
+
 /*
 *
 Warning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -44,7 +48,7 @@ Don not forget to call ResetMbrVars() in between Dynamic animation method calls
 
       //DynamicAnimation.SnowflakeTwinkling(70,50,Colors::quarterbrightness,true,10);
 
-    DynamicAnimation.ChristmasOriginalTwinkling(70,20,Colors::fullcolor,Colors::quarterbrightness,true,10);
+    //DynamicAnimation.ChristmasOriginalTwinkling(70,20,Colors::fullcolor,Colors::quarterbrightness,true,10);
   
       //DynamicAnimation.SingleColorTwinkling(70,50,Colors::red,Colors::fullcolor,Colors::quarterbrightness,true,10);
   

@@ -2,7 +2,7 @@
 
 Network::Network()
 {
-StartServer(80);
+StartServer(80);//Start Server on Port 80 - Defaults to 80 when no port is specified.
 }
 
 
